@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}RMX CYBERTECH{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=3"> <!-- Forzar recarga -->
+  <style>
+    body {
+      background-color: #0d0d2b;
+      font-family: Arial, sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .logo {
+      height: 60px;
+    }
+    h1 {
+      font-size: 48px;
+      color: #00f5ff;
+      text-shadow: 0 0 10px #00f5ff, 0 0 20px #00f5ff, 0 0 30px #00f5ff, 0 0 40px #00f5ff;
+    }
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="logo-container">
+      <img src="{{ url_for('static', filename='img/Logo.png') }}" alt="Logo RMX CYBERTECH" class="logo">
+      <!-- Título brillante RMX CYBERTECH -->
+      <h1>RMX CYBERTECH</h1>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for cat, msg in messages %}
+          <div class="flash {{cat}}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2025 RMX CYBERTECH. TODOS LOS DERECHOS RESERVADOS.</p>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="dashboard-container text-center mt-5">
+
+    <!-- Logo -->
+    <div class="dashboard-header mb-4">
+        <img src="{{ url_for('static', filename='img/Logo.png') }}" 
+             alt="Logo RMX" 
+             class="dashboard-logo img-fluid" 
+             style="max-width: 150px;">
+    </div>
+
+    <!-- Bienvenida -->
+    <div class="dashboard-body">
+        <h2 class="welcome-title text-white fw-bold mb-4">
+            Bienvenido, 
+            <span class="username" style="color: #00f5ff;">
+                {{ current_user.username }}
+            </span>
+        </h2>
+
+        <!-- Estado 2FA -->
+        {% if not current_user.two_factor_enabled %}
+            <a href="{{ url_for('auth.setup_2fa') }}" 
+               class="btn btn-info btn-lg mb-3">
+                🔒 Activar 2FA
+            </a>
+        {% else %}
+            <div class="twofa-status fs-5 mb-3" style="color: #00f5ff;">
+                ✅ 2FA activado
+            </div>
+
+            <!-- Botón regenerar códigos -->
+            <a href="{{ url_for('auth.setup_2fa') }}" 
+               class="btn btn-warning btn-sm mb-4">
+                🔑 Regenerar códigos de recuperación
+            </a>
+        {% endif %}
+
+        <!-- Info del usuario -->
+        <div class="user-info card bg-dark text-white mx-auto" style="max-width: 400px; border-radius: 10px;">
+            <div class="card-body">
+                <p class="mb-2">
+                    📅 <strong>Cuenta creada:</strong> 
+                    {% if current_user.is_authenticated %}
+                        {{ current_user.created_at.strftime("%d/%m/%Y %H:%M") }}
+                    {% else %}
+                        Información no disponible.
+                    {% endif %}
+                </p>
+                <p class="mb-0">
+                    ⏳ <strong>Último inicio de sesión:</strong> 
+                    {% if current_user.last_login %}
+                        {{ current_user.last_login.strftime("%d/%m/%Y %H:%M") }}
+                    {% else %}
+                        Primera vez que inicias sesión
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <!-- Logout -->
+        <a href="{{ url_for('auth.logout') }}" 
+           class="btn btn-danger btn-lg mt-4">
+            Cerrar sesión
+        </a>
+    </div>
+</div>
+{% endblock %}

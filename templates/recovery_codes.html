@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Códigos de recuperación</h2>
+    <p>Guarda estos códigos en un lugar seguro. Puedes usarlos para acceder a tu cuenta si pierdes el acceso a tu 2FA.</p>
+
+    <!-- Guardamos los códigos en un <script> en formato JSON -->
+    <script id="codes-data" type="application/json">
+        {{ codes|tojson|safe }}
+    </script>
+
+    <ul id="codes-list" class="list-group mt-3"></ul>
+
+    <button id="download-btn" class="btn btn-primary mt-4">Descargar códigos</button>
+</div>
+
+<script>
+    // Obtenemos los códigos desde el script JSON
+    const codes = JSON.parse(document.getElementById("codes-data").textContent);
+
+    // Pintamos en la lista
+    const list = document.getElementById("codes-list");
+    codes.forEach(code => {
+        const li = document.createElement("li");
+        li.textContent = code;
+        li.className = "list-group-item";
+        list.appendChild(li);
+    });
+
+    // Permitir descarga en TXT
+    document.getElementById("download-btn").addEventListener("click", () => {
+        const blob = new Blob([codes.join("\n")], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "recovery_codes.txt";
+        a.click();
+
+        URL.revokeObjectURL(url);
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="recovery-container">
+
+  <h2>Recuperación de 2FA</h2>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form method="post" novalidate>
+    {{ form.hidden_tag() }}
+
+    <p>
+      {{ form.recovery_code.label }}<br>
+      {{ form.recovery_code(size=32, placeholder="Código de recuperación") }}<br>
+      {% for error in form.recovery_code.errors %}
+        <span class="error">{{ error }}</span>
+      {% endfor %}
+    </p>
+
+    <p>{{ form.submit(class="btn-submit") }}</p>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+<!-- 📂 templates/email/email_reset.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Recuperación de contraseña</title>
+</head>
+<body style="margin:0; padding:0; font-family: Arial, sans-serif; background-color:#f4f4f4;">
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td align="center" style="padding: 40px 0;">
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" style="background:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+                    
+                    <!-- Header -->
+                    <tr>
+                        <td align="center" bgcolor="#0d6efd" style="padding: 20px; color:#ffffff; font-size:22px; font-weight:bold;">
+                            🔐 Recuperación de contraseña
+                        </td>
+                    </tr>
+
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding: 30px; color:#333333; font-size:16px; line-height:1.6;">
+                            <p>Hola <strong>{{ user.username }}</strong>,</p>
+                            <p>Has solicitado restablecer tu contraseña. Haz clic en el botón de abajo para continuar:</p>
+
+                            <p style="text-align:center; margin:30px 0;">
+                                <a href="{{ link }}" 
+                                   style="background:#0d6efd; color:#ffffff; text-decoration:none; padding:14px 28px; font-size:16px; border-radius:6px; display:inline-block; font-weight:bold;">
+                                    Restablecer contraseña
+                                </a>
+                            </p>
+
+                            <p>⚠️ Este enlace expira en <strong>10 minutos</strong>.</p>
+                            <p>Si no solicitaste este cambio, puedes ignorar este correo.</p>
+                            <br>
+                            <p>Saludos,<br>El equipo de Seguridad</p>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td align="center" bgcolor="#f8f9fa" style="padding:20px; font-size:12px; color:#6c757d;">
+                            © {{ current_year }} Tu Aplicación. Todos los derechos reservados.
+                        </td>
+                    </tr>
+                    
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

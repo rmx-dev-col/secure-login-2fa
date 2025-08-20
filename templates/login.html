@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Login - RMX CYBERTECH{% endblock %}
+
+{% block content %}
+<div class="login-container">
+  <h2>Login</h2>
+  <form method="post" novalidate>
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+      {{ form.username.label }}
+      {{ form.username(size=32) }}
+      {% for error in form.username.errors %}
+        <span class="error">{{ error }}</span>
+      {% endfor %}
+    </div>
+
+    <div class="form-group">
+      {{ form.password.label }}
+      {{ form.password(size=32) }}
+      {% for error in form.password.errors %}
+        <span class="error">{{ error }}</span>
+      {% endfor %}
+    </div>
+
+    <div class="form-remember">
+      {{ form.remember() }} {{ form.remember.label }}
+    </div>
+
+    <div class="form-submit">
+      {{ form.submit(class_="btn-submit") }}
+    </div>
+  </form>
+
+  <p class="forgot-password">
+    <a href="{{ url_for('auth.forgot_password') }}">¿Olvidaste tu contraseña?</a>
+  </p>
+
+  <p class="create-account">
+    <a href="{{ url_for('auth.register') }}">Crear cuenta</a>
+  </p>
+</div>
+{% endblock %}

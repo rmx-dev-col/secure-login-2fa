@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="twofactor-container">
+
+  <h2>{% if setup %}Configurar 2FA{% else %}Verificar 2FA{% endif %}</h2>
+
+  <!-- Mensajes flash -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% if setup and qr %}
+    <p>Escanea este código QR en tu app Authenticator (Google Authenticator, Authy, etc.):</p>
+    <img src="{{ qr }}" alt="QR 2FA" class="qr-image">
+    <p>Luego introduce el código que te muestra la app para confirmar la configuración.</p>
+  {% endif %}
+
+  <form method="post" novalidate>
+    {{ form.hidden_tag() }}
+
+    <p>
+      {{ form.token.label }}<br>
+      {{ form.token(size=20, placeholder="Código 2FA") }}<br>
+      {% for error in form.token.errors %}
+        <span class="error">{{ error }}</span>
+      {% endfor %}
+    </p>
+
+    <p>{{ form.submit(class="btn-submit") }}</p>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Registro - RMX CYBERTECH{% endblock %}
+
+{% block content %}
+<div class="register-container">
+  <h2>Crear cuenta</h2>
+  <form method="post" novalidate>
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+      {{ form.username.label }}
+      {{ form.username(size=32) }}
+      {% for error in form.username.errors %}
+        <span class="error">{{ error }}</span>
+      {% endfor %}
+    </div>
+
+    <div class="form-group">
+      {{ form.email.label }}
+      {{ form.email(size=32) }}
+      {% for error in form.email.errors %}
+        <span class="error">{{ error }}</span>
+      {% endfor %}
+    </div>
+
+    <div class="form-group">
+      {{ form.password.label }}
+      {{ form.password(size=32) }}
+      {% for error in form.password.errors %}
+        <span class="error">{{ error }}</span>
+      {% endfor %}
+    </div>
+
+    <div class="form-submit">
+      {{ form.submit(class_="btn-submit") }}
+    </div>
+  </form>
+
+  <p class="login-link">
+    ¿Ya tienes una cuenta? <a href="{{ url_for('auth.login') }}">Inicia sesión</a>
+  </p>
+</div>
+{% endblock %}
